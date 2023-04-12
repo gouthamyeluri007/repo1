@@ -1,7 +1,11 @@
 name: Build Custom Container Image and Deploy  
 
 on:
-  workflow_dispatch:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
 
 
 jobs:
