@@ -11,11 +11,20 @@ jobs:
 
     - uses: actions/checkout@v2
     
-    - uses: azure/docker-login@v1
+    - name: ACR config 
+      uses: azure/docker-login@v1
       with:
         login-server: alloan.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: |
+
+    - name: Build docker image and push to ACR
+      run: |
         docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01.
         docker push alloan.azurecr.io/alloanautocontainer:Image_version_01.
+
+    - name: Deploy into Azure Funtions
+      uses: Azure/functions-action@v1
+      with:
+        app-name: alloan-intex
+        package: 'alloan.azurecr.io/alloanautocontainer:Image_version_01'
