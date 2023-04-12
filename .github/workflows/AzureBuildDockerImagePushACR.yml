@@ -20,8 +20,8 @@ jobs:
 
     - name: Build docker image and push to ACR
       run: |
-        docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01.
-        docker push alloan.azurecr.io/alloanautocontainer:Image_version_01.
+        docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01
+        docker push alloan.azurecr.io/alloanautocontainer:Image_version_01
 
     - name: Deploy into Azure Funtions
       uses: Azure/functions-action@v1
