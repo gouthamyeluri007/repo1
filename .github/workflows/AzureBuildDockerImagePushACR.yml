@@ -17,5 +17,5 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
-        docker build . -t alloan.azurecr.io/AlloanAutoContainer:Image-latest.
-        docker push alloan.azurecr.io/AlloanAutoContainer:Image-${{ steps.date.outputs.date }}.
+        docker build . -t alloan.azurecr.io/alloanautocontainer:Image-latest.
+        docker push alloan.azurecr.io/alloanautocontainer:Image-${{ steps.date.outputs.date }}.
