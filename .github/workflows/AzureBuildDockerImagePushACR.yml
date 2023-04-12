@@ -1,4 +1,4 @@
-name: Build Linux Container Image and Push to ACR
+name: Build Custom Container Image and Deploy  
 
 on:
   workflow_dispatch:
