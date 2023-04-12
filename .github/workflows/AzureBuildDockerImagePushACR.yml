@@ -5,6 +5,7 @@ on:
 
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -22,12 +23,6 @@ jobs:
       run: |
         docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01
         docker push alloan.azurecr.io/alloanautocontainer:Image_version_01
-
-  deploy:
-    needs: build-and-push-image
-    runs-on: ubuntu-latest
-    steps:
-    
 
     - name: Deploy to Azure Function App
       uses: azure/webapps-deploy@v2
