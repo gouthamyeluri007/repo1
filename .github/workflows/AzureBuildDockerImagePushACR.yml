@@ -1,41 +1,24 @@
-name: Build Custom Container Image and Deploy  
+name: Build Linux Container Image and Push to ACR
 
 on:
-  workflow_dispatch:
+  pull_request:
+    types:
+      - closed:
 
 
 jobs:
-
+  merge-job:
   build:
     runs-on: ubuntu-latest
     steps:
 
     - uses: actions/checkout@v2
     
-    - name: ACR config 
-      uses: azure/docker-login@v1
+    - uses: azure/docker-login@v1
       with:
         login-server: alloan.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-
-    - name: Build docker image and push to ACR
-      run: |
-        docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01
-        docker push alloan.azurecr.io/alloanautocontainer:Image_version_01
-
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
-    - name: Deploy to Azure Function App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: alloan-intex
-        images: alloan.azurecr.io/alloanautocontainer:Image_version_01
-        slot-name: production
-      env:
-        DOCKER_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-        DOCKER_REGISTRY_SERVER_URL: alloan.azurecr.io
-        DOCKER_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+    - run: |
+        docker build . -t alloan.azurecr.io/alloan_auto_container: Image_version_01
+        docker push alloan.azurecr.io/alloan_auto_container:Image_version_01
