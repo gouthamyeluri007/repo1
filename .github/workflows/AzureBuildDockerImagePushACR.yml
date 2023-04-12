@@ -23,8 +23,19 @@ jobs:
         docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01
         docker push alloan.azurecr.io/alloanautocontainer:Image_version_01
 
-    - name: Deploy into Azure Funtions
-      uses: Azure/functions-action@v1
+deploy:
+    needs: build-and-push-image
+    runs-on: ubuntu-latest
+    steps:
+    
+
+    - name: Deploy to Azure Function App
+      uses: azure/webapps-deploy@v2
       with:
         app-name: alloan-intex
-        package: 'alloan.azurecr.io/alloanautocontainer:Image_version_01'
+        images: alloan.azurecr.io/alloanautocontainer:Image_version_01
+        slot-name: production
+      env:
+        DOCKER_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+        DOCKER_REGISTRY_SERVER_URL: alloan.azurecr.io
+        DOCKER_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
