@@ -1,21 +1,25 @@
-name: Build Linux Container Image and Push to ACR
+name: Build Custom Container Image and Deploy  
 
 on:
   workflow_dispatch:
 
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
 
     - uses: actions/checkout@v2
     
-    - uses: azure/docker-login@v1
+    - name: ACR config 
+      uses: azure/docker-login@v1
       with:
         login-server: alloan.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: |
-        docker build . -t alloan.azurecr.io/alloan_auto_container: Image_${{ steps.date.outputs.date }}.
-        docker push alloan.azurecr.io/alloan_auto_container:Image_${{ steps.date.outputs.date }}.
+
+    - name: Build docker image and push to ACR
+      run: |
+        docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01
+        docker push alloan.azurecr.io/alloanautocontainer:Image_version_01
