@@ -1,13 +1,7 @@
 name: Build Custom Container Image and Deploy  
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - main
-    if: github.event.pull_request.merged == true
-
+  workflow_dispatch:
 
 jobs:
 
