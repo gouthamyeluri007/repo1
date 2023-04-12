@@ -24,6 +24,11 @@ jobs:
         docker build . -t alloan.azurecr.io/alloanautocontainer:Image_version_01
         docker push alloan.azurecr.io/alloanautocontainer:Image_version_01
 
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
     - name: Deploy to Azure Function App
       uses: azure/webapps-deploy@v2
       with:
