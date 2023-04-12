@@ -1,13 +1,10 @@
 name: Build Linux Container Image and Push to ACR
 
 on:
-  pull_request:
-    types:
-      - closed:
+  workflow_dispatch:
 
 
 jobs:
-  merge-job:
   build:
     runs-on: ubuntu-latest
     steps:
