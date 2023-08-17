@@ -22,7 +22,7 @@ jobs:
         run: |
             docker build -t alloan-con-qa .
             docker tag alloan-con-qa alloan.azurecr.io/alloan_qa_container:${{ github.run_number }}
-            docker push myacr.azurecr.io/my-docker-image:${{ github.run_number }}
+            docker push myacr.azurecr.io/alloan_qa_container:${{ github.run_number }}
 
 
           
