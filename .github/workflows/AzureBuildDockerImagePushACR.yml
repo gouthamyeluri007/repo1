@@ -3,11 +3,6 @@ name: Build Custom Container Image and Deploy
 on:
   workflow_dispatch:
 
-
-on:
-  pull_request:
-    types: [closed]
-
 jobs:
   build:
     runs-on: ubuntu-latest
